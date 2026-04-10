@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player | DoubleU Official</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --accent: #007bff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+        }
+        .logo { font-weight: 900; letter-spacing: 4px; text-decoration: none; color: #fff; }
+        .back-link { text-decoration: none; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .back-link:hover { color: var(--accent); }
+
+        /* --- MAIN LAYOUT --- */
+        .player-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            height: calc(100vh - 150px);
+        }
+
+        /* --- PLAYLIST SIDE --- */
+        .playlist-side {
+            padding: 40px;
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+        }
+        .playlist-header { margin-bottom: 30px; }
+        .playlist-header h2 { font-size: 1.5rem; letter-spacing: 2px; text-transform: uppercase; }
+        
+        .song-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 10px;
+            border: 1px solid transparent;
+        }
+        .song-item:hover { background: var(--glass); border-color: var(--border); }
+        .song-item.active { background: rgba(0, 123, 255, 0.1); border-color: var(--accent); }
+        
+        .song-item img { width: 50px; height: 50px; border-radius: 6px; margin-right: 20px; }
+        .song-details h4 { font-size: 0.9rem; margin-bottom: 4px; }
+        .song-details p { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; }
+
+        /* --- VISUALIZER SIDE --- */
+        .visualizer-side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, rgba(0, 123, 255, 0.05) 0%, transparent 70%);
+        }
+        .now-playing-art {
+            width: 350px;
+            height: 350px;
+            border-radius: 20px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
+            margin-bottom: 40px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+        }
+        .now-playing-info { text-align: center; margin-bottom: 30px; }
+        .now-playing-info h1 { font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 10px; }
+        .now-playing-info p { color: var(--accent); text-transform: uppercase; letter-spacing: 3px; font-weight: 800; font-size: 0.8rem; }
+
+        /* --- CONTROLS BAR --- */
+        .controls-bar {
+            height: 100px;
+            background: #0a0a0a;
+            border-top: 1px solid var(--border);
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .player-ui { width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 10px; }
+        .main-controls { display: flex; align-items: center; justify-content: center; gap: 40px; }
+        .main-controls button { background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
+        .main-controls button:hover { color: var(--accent); }
+        .play-trigger { width: 50px; height: 50px; border-radius: 50%; background: #fff; color: #000 !important; font-size: 1rem !important; }
+        
+        .progress-area { display: flex; align-items: center; gap: 15px; }
+        .progress-area span { font-size: 0.7rem; color: var(--text-dim); font-family: monospace; width: 40px; }
+        .progress-bar-container { flex: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; position: relative; cursor: pointer; }
+        .progress-bar-fill { width: 0%; height: 100%; background: var(--accent); border-radius: 2px; }
+
+        @media (max-width: 900px) {
+            .player-container { grid-template-columns: 1fr; }
+            .playlist-side { display: none; }
+            .now-playing-art { width: 250px; height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">DOUBLEU</a>
+        <a href="music.html" class="back-link">← Back to Catalog</a>
+    </nav>
+
+    <div class="player-container">
+        <div class="playlist-side">
+            <div class="playlist-header">
+                <h2>The Archive</h2>
+            </div>
+            <div id="playlist-container">
+                </div>
+        </div>
+
+        <div class="visualizer-side">
+            <img id="current-art" src="assets/images/faded405.jpg" alt="Art" class="now-playing-art">
+            <div class="now-playing-info">
+                <p id="current-label">Playing from Faded 405</p>
+                <h1 id="current-title">Faded 405</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls-bar">
+        <div class="player-ui">
+            <div class="main-controls">
+                <button id="prev"><i class="fas fa-step-backward"></i></button>
+                <button id="play" class="play-trigger"><i class="fas fa-play"></i></button>
+                <button id="next"><i class="fas fa-step-forward"></i></button>
+            </div>
+            <div class="progress-area">
+                <span id="curr-time">0:00</span>
+                <div class="progress-bar-container" id="progress-container">
+                    <div class="progress-bar-fill" id="progress-fill"></div>
+                </div>
+                <span id="total-time">0:00</span>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audio-element" src=""></audio>
+
+    <script>
+        const songs = [
+            { title: "Faded 405", album: "Faded 405", art: "assets/images/faded405.jpg", file: "assets/audio/faded405.mp3" },
+            { title: "A Place To Land", album: "Single", art: "assets/images/aplacetoland.jpg", file: "assets/audio/aplacetoland.mp3" },
+            { title: "Cold Sheets Wide Eyes", album: "Single", art: "assets/images/coldsheets.jpg", file: "assets/audio/coldsheets.mp3" },
+            { title: "Zero Sum", album: "Single", art: "assets/images/zerosum.jpg", file: "assets/audio/zerosum.mp3" },
+            { title: "Fading Out", album: "Single", art: "assets/images/fadingout.jpg", file: "assets/audio/fadingout.mp3" },
+            { title: "Found You In The Rainfall", album: "Single", art: "assets/images/foundyouintherainfall.jpg", file: "assets/audio/foundyouintherainfall.mp3" },
+            { title: "Ain't New To Me", album: "Single", art: "assets/images/aintnewtome.jpg", file: "assets/audio/aintnewtome.mp3" },
+            { title: "Two of Us", album: "Single", art: "assets/images/twoofus.jpg", file: "assets/audio/twoofus.mp3" },
+            { title: "Real Life Trauma", album: "Single", art: "assets/images/reallifetrauma.jpg", file: "assets/audio/reallifetrauma.mp3" }
+        ];
+
+        let currentSongIndex = 0;
+        const audio = document.getElementById('audio-element');
+        const playBtn = document.getElementById('play');
+        const progressFill = document.getElementById('progress-fill');
+        const progressContainer = document.getElementById('progress-container');
+        const currTimeText = document.getElementById('curr-time');
+        const totalTimeText = document.getElementById('total-time');
+
+        // Render Playlist
+        const playlistContainer = document.getElementById('playlist-container');
+        songs.forEach((song, index) => {
+            const div = document.createElement('div');
+            div.className = `song-item ${index === 0 ? 'active' : ''}`;
+            div.innerHTML = `
+                <img src="${song.art}" alt="art">
+                <div class="song-details">
+                    <h4>${song.title}</h4>
+                    <p>${song.album}</p>
+                </div>
+            `;
+            div.onclick = () => loadSong(index);
+            playlistContainer.appendChild(div);
+        });
+
+        function loadSong(index) {
+            currentSongIndex = index;
+            const song = songs[index];
+            audio.src = song.file;
+            document.getElementById('current-art').src = song.art;
+            document.getElementById('current-title').innerText = song.title;
+            document.getElementById('current-label').innerText = `Playing from ${song.album}`;
+            
+            // Update Active UI
+            document.querySelectorAll('.song-item').forEach((el, i) => {
+                el.classList.toggle('active', i === index);
+            });
+
+            audio.play();
+            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                audio.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+
+        document.getElementById('next').addEventListener('click', () => {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong(currentSongIndex);
+        });
+
+        document.getElementById('prev').addEventListener('click', () => {
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+            loadSong(currentSongIndex);
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = `${progress}%`;
+            currTimeText.innerText = formatTime(audio.currentTime);
+            if (!isNaN(audio.duration)) totalTimeText.innerText = formatTime(audio.duration);
+        });
+
+        progressContainer.addEventListener('click', (e) => {
+            const width = progressContainer.clientWidth;
+            const clickX = e.offsetX;
+            audio.currentTime = (clickX / width) * audio.duration;
+        });
+
+        function formatTime(time) {
+            const mins = Math.floor(time / 60);
+            const secs = Math.floor(time % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Initialize first song without auto-playing (browser rules)
+        window.onload = () => {
+            const initialSong = songs[0];
+            audio.src = initialSong.file;
+        };
+    </script>
+</body>
+</html>
