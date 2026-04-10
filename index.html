@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOUBLEU | Official Site</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
             --bg-dark: #050505;
@@ -13,12 +15,13 @@
             --border: rgba(255, 255, 255, 0.1);
             --text-main: #ffffff;
             --text-dim: rgba(255, 255, 255, 0.6);
+            --navbar-height: 80px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
@@ -48,9 +51,9 @@
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
-            padding: 20px 0;
+            height: var(--navbar-height); display: flex; align-items: center;
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; width: 100%; }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-weight: 900; letter-spacing: 4px; text-decoration: none; color: #fff; font-size: 1.4rem; }
         .nav-links { display: flex; gap: 40px; }
@@ -58,94 +61,115 @@
             text-decoration: none; color: var(--text-dim); font-size: 0.75rem; 
             font-weight: 700; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
         }
-        .nav-link:hover { color: var(--accent); }
+        .nav-link:hover, .nav-link.active { color: var(--accent); }
 
         /* --- HERO SECTION --- */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding-top: 80px;
+            padding: 120px 20px 60px;
+            background: linear-gradient(rgba(5,5,5,0.2), rgba(5,5,5,0.9)), url('assets/images/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
         }
 
         .hero-label {
             font-size: 0.8rem; letter-spacing: 6px; text-transform: uppercase;
-            color: var(--accent); margin-bottom: 20px; font-weight: 800;
+            color: var(--accent); margin-bottom: 25px; font-weight: 800;
+            display: block;
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 10vw, 7rem);
-            font-weight: 900; letter-spacing: -2px;
-            line-height: 0.9; margin-bottom: 30px;
-            background: linear-gradient(to bottom, #fff 40%, #444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: clamp(2.2rem, 7vw, 5rem);
+            font-weight: 900; letter-spacing: -1px;
+            line-height: 1.1; margin-bottom: 40px;
+            text-transform: uppercase;
         }
+
+        .hero h1 span {
+            display: block;
+            opacity: 0.7;
+            font-weight: 300;
+            font-size: 0.7em;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        /* --- COUNTDOWN --- */
+        .countdown-container {
+            margin-top: 20px;
+            padding: 30px 50px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            display: inline-block;
+        }
+        .release-tag {
+            font-size: 0.7rem; letter-spacing: 4px; font-weight: 800;
+            margin-bottom: 25px; color: var(--text-dim); text-transform: uppercase;
+        }
+        #timer { display: flex; gap: 40px; justify-content: center; }
+        .time-block { display: flex; flex-direction: column; min-width: 60px; }
+        .time-block span { font-size: 2.2rem; font-weight: 900; color: #fff; font-variant-numeric: tabular-nums; }
+        .time-block label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.4; margin-top: 5px; }
 
         /* --- FEATURED SECTION --- */
-        .featured-release {
-            padding: 100px 0;
-            background: rgba(255,255,255,0.02);
-            border-top: 1px solid var(--border);
-        }
-
-        .release-flex {
-            display: flex; align-items: center; gap: 80px;
-        }
-
-        .release-cover {
-            flex: 1; position: relative;
-        }
-
-        .release-cover img {
-            width: 100%; border-radius: 4px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-        }
-
+        .featured-release { padding: 120px 0; border-top: 1px solid var(--border); }
+        .release-flex { display: flex; align-items: center; gap: 80px; }
+        .release-cover { flex: 1; }
+        .release-cover img { width: 100%; border-radius: 8px; box-shadow: 0 40px 80px rgba(0,0,0,0.6); }
         .release-info { flex: 1.2; }
-        .release-info h2 { font-size: 3rem; margin-bottom: 10px; }
-        .release-info p { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 30px; }
+        .release-info h2 { font-size: 3.5rem; margin-bottom: 15px; letter-spacing: -1px; }
+        .release-info p { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 40px; max-width: 500px; }
 
-        /* --- UI ELEMENTS --- */
+        /* --- BUTTONS --- */
         .btn-main {
-            display: inline-block; padding: 18px 45px;
+            display: inline-block; padding: 20px 45px;
             background: var(--accent); color: white;
             text-decoration: none; border-radius: 50px;
             font-weight: 700; text-transform: uppercase;
             letter-spacing: 2px; font-size: 0.8rem;
-            transition: 0.4s;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .btn-main:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0, 123, 255, 0.4); }
+        .btn-main:hover { transform: scale(1.05); box-shadow: 0 15px 35px rgba(0, 123, 255, 0.3); }
 
+        /* --- SOCIAL SIDEBAR --- */
         .social-sidebar {
             position: fixed; left: 40px; bottom: 40px;
-            display: flex; flex-direction: column; gap: 25px;
-            z-index: 100;
+            display: flex; flex-direction: column; gap: 25px; z-index: 100;
         }
         .social-sidebar a { color: var(--text-dim); font-size: 1.2rem; transition: 0.3s; }
-        .social-sidebar a:hover { color: var(--accent); }
+        .social-sidebar a:hover { color: var(--accent); transform: translateX(5px); }
 
         /* --- CONTACT --- */
-        .contact-section { padding: 120px 0; text-align: center; }
+        #contact { padding: 120px 0; background: rgba(255,255,255,0.01); }
         .contact-card {
             max-width: 700px; margin: 0 auto;
             background: var(--glass); padding: 60px;
             border-radius: 30px; border: 1px solid var(--border);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px); text-align: center;
         }
         input, textarea {
             width: 100%; background: rgba(255,255,255,0.05);
             border: 1px solid var(--border); padding: 20px;
             color: #fff; border-radius: 12px; margin-bottom: 20px;
+            font-family: inherit;
         }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); }
 
+        /* --- MOBILE RESPONSIVENESS --- */
         @media (max-width: 900px) {
             .release-flex { flex-direction: column; text-align: center; }
-            .nav-links { display: none; }
-            .social-sidebar { display: none; }
+            .release-info p { margin: 0 auto 40px; }
+            .nav-links, .social-sidebar { display: none; }
+            .container { padding: 0 25px; }
+            #timer { gap: 20px; }
+            .time-block span { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -165,10 +189,10 @@
         <div class="container nav-content">
             <a href="index.html" class="logo">DOUBLEU</a>
             <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html" class="nav-link active">Home</a>
                 <a href="music.html" class="nav-link">Music</a>
                 <a href="about.html" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Inquiries</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
         </div>
     </nav>
@@ -176,8 +200,24 @@
     <section class="hero">
         <div class="container">
             <span class="hero-label">Still at War</span>
-            <h1>CRAFTING THE<br>SOUNDSCAPE.</h1>
-            <a href="music.html" class="btn-main">View Full Discography</a>
+            <h1>
+                A VOICE FOR THE SOUL,<br>
+                <span>WHOS WORDS ARE LEFT UNHEARD</span>
+            </h1>
+            
+            <div class="countdown-container">
+                <p class="release-tag">A PLACE TO LAND — RELEASING IN</p>
+                <div id="timer">
+                    <div class="time-block"><span id="days">00</span><label>Days</label></div>
+                    <div class="time-block"><span id="hours">00</span><label>Hours</label></div>
+                    <div class="time-block"><span id="minutes">00</span><label>Min</label></div>
+                    <div class="time-block"><span id="seconds">00</span><label>Sec</label></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 50px;">
+                <a href="music.html" class="btn-main">View Full Discography</a>
+            </div>
         </div>
     </section>
 
@@ -185,255 +225,63 @@
         <div class="container">
             <div class="release-flex">
                 <div class="release-cover">
-                    <img src="assets/images/aplacetoland.jpg" alt="Latest Release">
+                    <img src="assets/images/aplacetoland.jpg" alt="A Place To Land">
                 </div>
                 <div class="release-info">
-                    <span class="hero-label">Latest Release</span>
+                    <span class="hero-label">Latest Arrival</span>
                     <h2>A Place To Land</h2>
-                    <p>The latest single exploring melodic vulnerability and the grit of the 904. Available now on all streaming platforms.</p>
-                    <a href="https://open.spotify.com" class="btn-main" style="background: transparent; border: 1px solid var(--border);">Listen on Spotify</a>
+                    <p>Experience the latest chapter in melodic trap. A raw, vulnerable exploration of the 904 perspective.</p>
+                    <a href="#" class="btn-main" style="background: transparent; border: 1px solid var(--border);">Stream Now</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="contact-section">
+    <section id="contact">
         <div class="container">
             <div class="contact-card">
-                <span class="hero-label">Contact</span>
-                <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Licensing & Bookings</h2>
+                <span class="hero-label">Get in Touch</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 40px; letter-spacing: -1px;">Business & Inquiries</h2>
                 <form>
-                    <input type="text" placeholder="Name">
-                    <input type="email" placeholder="Email">
-                    <textarea rows="4" placeholder="How can we work together?"></textarea>
-                    <button type="submit" class="btn-main" style="width: 100%; border: none; cursor: pointer;">Send Inquiry</button>
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <textarea rows="4" placeholder="Message" required></textarea>
+                    <button type="submit" class="btn-main" style="width: 100%; border: none; cursor: pointer;">Send Message</button>
                 </form>
             </div>
         </div>
     </section>
 
-    <footer style="padding: 100px 0; text-align: center; color: var(--text-dim); font-size: 0.7rem; letter-spacing: 2px;">
+    <footer style="padding: 100px 0; text-align: center; color: var(--text-dim); font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;">
         <p>© 2026 DOUBLEU | OKLAHOMA CITY | 904 STILL AT WAR</p>
     </footer>
 
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOUBLEU | Official Site</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg-dark: #050505;
-            --accent: #007bff;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
-            --text-main: #ffffff;
-            --text-dim: rgba(255, 255, 255, 0.6);
+    <script>
+        function updateCountdown() {
+            // Target Date: April 24, 2026
+            const releaseDate = new Date('April 24, 2026 00:00:00').getTime();
+            const now = new Date().getTime();
+            const gap = releaseDate - now;
+
+            const second = 1000;
+            const minute = second * 60;
+            const hour = minute * 60;
+            const day = hour * 24;
+
+            if (gap > 0) {
+                document.getElementById('days').innerText = Math.floor(gap / day).toString().padStart(2, '0');
+                document.getElementById('hours').innerText = Math.floor((gap % day) / hour).toString().padStart(2, '0');
+                document.getElementById('minutes').innerText = Math.floor((gap % hour) / minute).toString().padStart(2, '0');
+                document.getElementById('seconds').innerText = Math.floor((gap % minute) / second).toString().padStart(2, '0');
+            } else {
+                document.querySelector('.release-tag').innerText = "A PLACE TO LAND — OUT NOW";
+                document.getElementById('timer').style.display = 'none';
+            }
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* --- IMMERSIVE BACKGROUND --- */
-        .bg-glow {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #111 0%, #050505 100%);
-            z-index: -2;
-        }
-
-        .glow-overlay {
-            position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle at center, rgba(0, 123, 255, 0.05) 0%, transparent 40%);
-            animation: drift 20s infinite linear;
-            z-index: -1;
-        }
-
-        @keyframes drift {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
-            padding: 20px 0;
-        }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-        .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-weight: 900; letter-spacing: 4px; text-decoration: none; color: #fff; font-size: 1.4rem; }
-        .nav-links { display: flex; gap: 40px; }
-        .nav-link { 
-            text-decoration: none; color: var(--text-dim); font-size: 0.75rem; 
-            font-weight: 700; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
-        }
-        .nav-link:hover { color: var(--accent); }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-top: 80px;
-        }
-
-        .hero-label {
-            font-size: 0.8rem; letter-spacing: 6px; text-transform: uppercase;
-            color: var(--accent); margin-bottom: 20px; font-weight: 800;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 10vw, 7rem);
-            font-weight: 900; letter-spacing: -2px;
-            line-height: 0.9; margin-bottom: 30px;
-            background: linear-gradient(to bottom, #fff 40%, #444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* --- FEATURED SECTION --- */
-        .featured-release {
-            padding: 100px 0;
-            background: rgba(255,255,255,0.02);
-            border-top: 1px solid var(--border);
-        }
-
-        .release-flex {
-            display: flex; align-items: center; gap: 80px;
-        }
-
-        .release-cover {
-            flex: 1; position: relative;
-        }
-
-        .release-cover img {
-            width: 100%; border-radius: 4px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-        }
-
-        .release-info { flex: 1.2; }
-        .release-info h2 { font-size: 3rem; margin-bottom: 10px; }
-        .release-info p { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 30px; }
-
-        /* --- UI ELEMENTS --- */
-        .btn-main {
-            display: inline-block; padding: 18px 45px;
-            background: var(--accent); color: white;
-            text-decoration: none; border-radius: 50px;
-            font-weight: 700; text-transform: uppercase;
-            letter-spacing: 2px; font-size: 0.8rem;
-            transition: 0.4s;
-        }
-        .btn-main:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0, 123, 255, 0.4); }
-
-        .social-sidebar {
-            position: fixed; left: 40px; bottom: 40px;
-            display: flex; flex-direction: column; gap: 25px;
-            z-index: 100;
-        }
-        .social-sidebar a { color: var(--text-dim); font-size: 1.2rem; transition: 0.3s; }
-        .social-sidebar a:hover { color: var(--accent); }
-
-        /* --- CONTACT --- */
-        .contact-section { padding: 120px 0; text-align: center; }
-        .contact-card {
-            max-width: 700px; margin: 0 auto;
-            background: var(--glass); padding: 60px;
-            border-radius: 30px; border: 1px solid var(--border);
-            backdrop-filter: blur(10px);
-        }
-        input, textarea {
-            width: 100%; background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border); padding: 20px;
-            color: #fff; border-radius: 12px; margin-bottom: 20px;
-        }
-
-        @media (max-width: 900px) {
-            .release-flex { flex-direction: column; text-align: center; }
-            .nav-links { display: none; }
-            .social-sidebar { display: none; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="bg-glow"></div>
-    <div class="glow-overlay"></div>
-
-    <div class="social-sidebar">
-        <a href="#"><i class="fa-brands fa-spotify"></i></a>
-        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#"><i class="fa-brands fa-youtube"></i></a>
-        <a href="#"><i class="fa-brands fa-apple"></i></a>
-    </div>
-
-    <nav>
-        <div class="container nav-content">
-            <a href="index.html" class="logo">DOUBLEU</a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="music.html" class="nav-link">Music</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Inquiries</a>
-            </div>
-        </div>
-    </nav>
-
-    <section class="hero">
-        <div class="container">
-            <span class="hero-label">Still at War</span>
-            <h1>CRAFTING THE<br>SOUNDSCAPE.</h1>
-            <a href="music.html" class="btn-main">View Full Discography</a>
-        </div>
-    </section>
-
-    <section class="featured-release">
-        <div class="container">
-            <div class="release-flex">
-                <div class="release-cover">
-                    <img src="assets/images/aplacetoland.jpg" alt="Latest Release">
-                </div>
-                <div class="release-info">
-                    <span class="hero-label">Latest Release</span>
-                    <h2>A Place To Land</h2>
-                    <p>The latest single exploring melodic vulnerability and the grit of the 904. Available now on all streaming platforms.</p>
-                    <a href="https://open.spotify.com" class="btn-main" style="background: transparent; border: 1px solid var(--border);">Listen on Spotify</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="contact-card">
-                <span class="hero-label">Contact</span>
-                <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Licensing & Bookings</h2>
-                <form>
-                    <input type="text" placeholder="Name">
-                    <input type="email" placeholder="Email">
-                    <textarea rows="4" placeholder="How can we work together?"></textarea>
-                    <button type="submit" class="btn-main" style="width: 100%; border: none; cursor: pointer;">Send Inquiry</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer style="padding: 100px 0; text-align: center; color: var(--text-dim); font-size: 0.7rem; letter-spacing: 2px;">
-        <p>© 2026 DOUBLEU | OKLAHOMA CITY | 904 STILL AT WAR</p>
-    </footer>
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
 
 </body>
 </html>
