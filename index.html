@@ -21,7 +21,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
@@ -42,10 +42,7 @@
             z-index: -1;
         }
 
-        @keyframes drift {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        @keyframes drift { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         /* --- NAVIGATION --- */
         nav {
@@ -63,7 +60,7 @@
         }
         .nav-link:hover, .nav-link.active { color: var(--accent); }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -72,50 +69,19 @@
             align-items: center;
             text-align: center;
             padding: 120px 20px 60px;
-            background: linear-gradient(rgba(5,5,5,0.2), rgba(5,5,5,0.9)), url('assets/images/hero-bg.jpg');
+            background: linear-gradient(rgba(5,5,5,0.3), rgba(5,5,5,0.95)), url('assets/images/hero-bg.jpg');
             background-size: cover;
             background-position: center;
         }
-
-        .hero-label {
-            font-size: 0.8rem; letter-spacing: 6px; text-transform: uppercase;
-            color: var(--accent); margin-bottom: 25px; font-weight: 800;
-            display: block;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.2rem, 7vw, 5rem);
-            font-weight: 900; letter-spacing: -1px;
-            line-height: 1.1; margin-bottom: 40px;
-            text-transform: uppercase;
-        }
-
-        .hero h1 span {
-            display: block;
-            opacity: 0.7;
-            font-weight: 300;
-            font-size: 0.7em;
-            letter-spacing: 2px;
-            margin-top: 10px;
-        }
+        .hero-label { font-size: 0.8rem; letter-spacing: 6px; text-transform: uppercase; color: var(--accent); margin-bottom: 25px; font-weight: 800; display: block; }
+        .hero h1 { font-size: clamp(2.2rem, 7vw, 5rem); font-weight: 900; line-height: 1.1; margin-bottom: 40px; text-transform: uppercase; }
+        .hero h1 span { display: block; opacity: 0.7; font-weight: 300; font-size: 0.7em; letter-spacing: 2px; margin-top: 10px; }
 
         /* --- COUNTDOWN --- */
-        .countdown-container {
-            margin-top: 20px;
-            padding: 30px 50px;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            display: inline-block;
-        }
-        .release-tag {
-            font-size: 0.7rem; letter-spacing: 4px; font-weight: 800;
-            margin-bottom: 25px; color: var(--text-dim); text-transform: uppercase;
-        }
+        .countdown-container { padding: 30px 50px; background: var(--glass); backdrop-filter: blur(15px); border: 1px solid var(--border); border-radius: 20px; display: inline-block; }
+        .release-tag { font-size: 0.7rem; letter-spacing: 4px; font-weight: 800; margin-bottom: 25px; color: var(--text-dim); text-transform: uppercase; }
         #timer { display: flex; gap: 40px; justify-content: center; }
-        .time-block { display: flex; flex-direction: column; min-width: 60px; }
-        .time-block span { font-size: 2.2rem; font-weight: 900; color: #fff; font-variant-numeric: tabular-nums; }
+        .time-block span { font-size: 2.2rem; font-weight: 900; color: #fff; font-variant-numeric: tabular-nums; display: block; }
         .time-block label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.4; margin-top: 5px; }
 
         /* --- FEATURED SECTION --- */
@@ -127,49 +93,26 @@
         .release-info h2 { font-size: 3.5rem; margin-bottom: 15px; letter-spacing: -1px; }
         .release-info p { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 40px; max-width: 500px; }
 
+        /* --- VISUALS GRID --- */
+        .visuals-section { padding: 100px 0; background: rgba(255,255,255,0.01); }
+        .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 50px; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid var(--border); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .video-title { margin-top: 15px; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.5; font-weight: 800; }
+
         /* --- BUTTONS --- */
-        .btn-main {
-            display: inline-block; padding: 20px 45px;
-            background: var(--accent); color: white;
-            text-decoration: none; border-radius: 50px;
-            font-weight: 700; text-transform: uppercase;
-            letter-spacing: 2px; font-size: 0.8rem;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+        .btn-main { display: inline-block; padding: 20px 45px; background: var(--accent); color: white; text-decoration: none; border-radius: 50px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; transition: 0.4s; }
         .btn-main:hover { transform: scale(1.05); box-shadow: 0 15px 35px rgba(0, 123, 255, 0.3); }
 
-        /* --- SOCIAL SIDEBAR --- */
-        .social-sidebar {
-            position: fixed; left: 40px; bottom: 40px;
-            display: flex; flex-direction: column; gap: 25px; z-index: 100;
-        }
-        .social-sidebar a { color: var(--text-dim); font-size: 1.2rem; transition: 0.3s; }
-        .social-sidebar a:hover { color: var(--accent); transform: translateX(5px); }
-
         /* --- CONTACT --- */
-        #contact { padding: 120px 0; background: rgba(255,255,255,0.01); }
-        .contact-card {
-            max-width: 700px; margin: 0 auto;
-            background: var(--glass); padding: 60px;
-            border-radius: 30px; border: 1px solid var(--border);
-            backdrop-filter: blur(10px); text-align: center;
-        }
-        input, textarea {
-            width: 100%; background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border); padding: 20px;
-            color: #fff; border-radius: 12px; margin-bottom: 20px;
-            font-family: inherit;
-        }
-        input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+        #contact { padding: 120px 0; }
+        .contact-card { max-width: 700px; margin: 0 auto; background: var(--glass); padding: 60px; border-radius: 30px; border: 1px solid var(--border); backdrop-filter: blur(10px); text-align: center; }
+        input, textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 20px; color: #fff; border-radius: 12px; margin-bottom: 20px; font-family: inherit; }
 
-        /* --- MOBILE RESPONSIVENESS --- */
         @media (max-width: 900px) {
-            .release-flex { flex-direction: column; text-align: center; }
-            .release-info p { margin: 0 auto 40px; }
-            .nav-links, .social-sidebar { display: none; }
-            .container { padding: 0 25px; }
+            .release-flex, .video-grid { grid-template-columns: 1fr; flex-direction: column; }
+            .nav-links { display: none; }
             #timer { gap: 20px; }
-            .time-block span { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -177,13 +120,6 @@
 
     <div class="bg-glow"></div>
     <div class="glow-overlay"></div>
-
-    <div class="social-sidebar">
-        <a href="#"><i class="fa-brands fa-spotify"></i></a>
-        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#"><i class="fa-brands fa-youtube"></i></a>
-        <a href="#"><i class="fa-brands fa-apple"></i></a>
-    </div>
 
     <nav>
         <div class="container nav-content">
@@ -200,10 +136,7 @@
     <section class="hero">
         <div class="container">
             <span class="hero-label">Still at War</span>
-            <h1>
-                A VOICE FOR THE SOUL,<br>
-                <span>WHOS WORDS ARE LEFT UNHEARD</span>
-            </h1>
+            <h1>A VOICE FOR THE SOUL,<br><span>WHOS WORDS ARE LEFT UNHEARD</span></h1>
             
             <div class="countdown-container">
                 <p class="release-tag">A PLACE TO LAND — RELEASING IN</p>
@@ -213,10 +146,6 @@
                     <div class="time-block"><span id="minutes">00</span><label>Min</label></div>
                     <div class="time-block"><span id="seconds">00</span><label>Sec</label></div>
                 </div>
-            </div>
-
-            <div style="margin-top: 50px;">
-                <a href="music.html" class="btn-main">View Full Discography</a>
             </div>
         </div>
     </section>
@@ -230,8 +159,29 @@
                 <div class="release-info">
                     <span class="hero-label">Latest Arrival</span>
                     <h2>A Place To Land</h2>
-                    <p>Experience the latest chapter in melodic trap. A raw, vulnerable exploration of the 904 perspective.</p>
-                    <a href="#" class="btn-main" style="background: transparent; border: 1px solid var(--border);">Stream Now</a>
+                    <p>The next chapter of the 904 soundscape. Melodic vulnerability meets raw urban grit.</p>
+                    <a href="https://spotify.com" class="btn-main" target="_blank">Stream on Spotify</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="visuals-section">
+        <div class="container">
+            <span class="hero-label">The Visuals</span>
+            <h2>Official Videos</h2>
+            <div class="video-grid">
+                <div>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/5DQTE3P8uBY" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p class="video-title">Cold Sheets Wide Eyes</p>
+                </div>
+                <div style="opacity: 0.3;">
+                    <div class="video-container" style="background: var(--glass); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-lock" style="font-size: 2rem; position: absolute; top: 45%;"></i>
+                    </div>
+                    <p class="video-title">Next Visual Coming Soon</p>
                 </div>
             </div>
         </div>
@@ -240,8 +190,8 @@
     <section id="contact">
         <div class="container">
             <div class="contact-card">
-                <span class="hero-label">Get in Touch</span>
-                <h2 style="font-size: 2.5rem; margin-bottom: 40px; letter-spacing: -1px;">Business & Inquiries</h2>
+                <span class="hero-label">Inquiries</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 40px;">Work With Me</h2>
                 <form>
                     <input type="text" placeholder="Your Name" required>
                     <input type="email" placeholder="Email Address" required>
@@ -258,15 +208,10 @@
 
     <script>
         function updateCountdown() {
-            // Target Date: April 24, 2026
             const releaseDate = new Date('April 24, 2026 00:00:00').getTime();
             const now = new Date().getTime();
             const gap = releaseDate - now;
-
-            const second = 1000;
-            const minute = second * 60;
-            const hour = minute * 60;
-            const day = hour * 24;
+            const second = 1000, minute = second * 60, hour = minute * 60, day = hour * 24;
 
             if (gap > 0) {
                 document.getElementById('days').innerText = Math.floor(gap / day).toString().padStart(2, '0');
@@ -278,10 +223,8 @@
                 document.getElementById('timer').style.display = 'none';
             }
         }
-
         setInterval(updateCountdown, 1000);
         updateCountdown();
     </script>
-
 </body>
 </html>
