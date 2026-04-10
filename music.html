@@ -72,12 +72,14 @@
             backdrop-filter: blur(10px);
             opacity: 0;
             transform: translateY(20px);
+            display: flex;
+            flex-direction: column;
         }
         .disco-card.reveal { opacity: 1; transform: translateY(0); }
         .disco-card:hover { transform: translateY(-10px); border-color: rgba(255, 255, 255, 0.2); }
 
         .disco-card img { width: 100%; border-radius: 12px; margin-bottom: 20px; aspect-ratio: 1/1; object-fit: cover; }
-        .disco-card h3 { margin: 0; font-size: 1.2rem; }
+        .disco-card h3 { margin: 0; font-size: 1.2rem; min-height: 2.8rem; display: flex; align-items: center; justify-content: center; }
         .disco-card p { opacity: 0.5; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin: 5px 0 20px; }
 
         .btn-play {
@@ -85,7 +87,7 @@
             padding: 12px 20px; background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 30px;
             color: white; font-size: 0.8rem; font-weight: bold; text-decoration: none;
-            transition: 0.3s; width: 100%; box-sizing: border-box;
+            transition: 0.3s; width: 100%; box-sizing: border-box; margin-top: auto;
         }
         .btn-play:hover { background: var(--spotify-green); border-color: var(--spotify-green); }
         .btn-play.yt:hover { background: var(--youtube-red); border-color: var(--youtube-red); }
@@ -95,7 +97,8 @@
 
         @media (max-width: 600px) {
             .page-title { font-size: 2.5rem; }
-            .nav-links { display: none; } /* Hide complex nav on mobile for simplicity */
+            .nav-links { gap: 15px; }
+            .nav-link { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -115,11 +118,11 @@
 
     <div class="container">
         <header class="page-header">
-            <span class="label">Full Catalog</span>
-            <h1 class="page-title">Music</h1>
+            <span class="label">Full Discography</span>
+            <h1 class="page-title">Catalog</h1>
         </header>
 
-        <h2 class="section-title">Albums & Projects</h2>
+        <h2 class="section-title">Albums</h2>
         <div class="disco-grid">
             <div class="disco-card">
                 <img src="assets/images/faded405.jpg" alt="Faded 405">
@@ -129,10 +132,11 @@
             </div>
         </div>
 
-        <h2 class="section-title">Latest Singles</h2>
+        <h2 class="section-title">2026 Singles</h2>
         <div class="disco-grid">
             <div class="disco-card">
                 <img src="assets/images/aplacetoland.jpg" alt="A Place To Land">
+                <div style="position: absolute; top: 10px; right: 10px; background: var(--accent-main); font-size: 0.6rem; padding: 4px 10px; border-radius: 20px; font-weight: 900;">OUT 4/24</div>
                 <h3>A Place To Land</h3>
                 <p>Single • 2026</p>
                 <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Presave</a>
@@ -142,7 +146,7 @@
                 <img src="assets/images/coldsheets.jpg" alt="Cold Sheets Wide Eyes">
                 <h3>Cold Sheets Wide Eyes</h3>
                 <p>Single • 2026</p>
-                <a href="https://youtu.be/5DQTE3P8uBY" class="btn-play yt"><i class="fa-brands fa-youtube"></i> Watch Video</a>
+                <a href="https://youtu.be/5DQTE3P8uBY" class="btn-play yt" target="_blank"><i class="fa-brands fa-youtube"></i> Watch Video</a>
             </div>
 
             <div class="disco-card">
@@ -160,7 +164,7 @@
             </div>
         </div>
 
-        <h2 class="section-title">From The Vault</h2>
+        <h2 class="section-title">2021 – 2025</h2>
         <div class="disco-grid">
             <div class="disco-card">
                 <img src="assets/images/foundyouintherainfall.jpg" alt="Found you in the RainFall">
@@ -177,9 +181,30 @@
             </div>
 
             <div class="disco-card">
-                <img src="assets/images/twoofus.jpg" alt="Two of Us">
-                <h3>Two of Us</h3>
-                <p>Single • 2021</p>
+                <img src="assets/images/closerthancloer.jpg" alt="Closer than cloer">
+                <h3>Closer Than Cloer</h3>
+                <p>Single • 2023</p>
+                <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen</a>
+            </div>
+
+            <div class="disco-card">
+                <img src="assets/images/fresh.jpg" alt="Fresh">
+                <h3>Fresh</h3>
+                <p>Single • 2022</p>
+                <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen</a>
+            </div>
+
+            <div class="disco-card">
+                <img src="assets/images/trippin.jpg" alt="Trippin">
+                <h3>Trippin</h3>
+                <p>Single • 2022</p>
+                <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen</a>
+            </div>
+
+            <div class="disco-card">
+                <img src="assets/images/pakkagedeal.jpg" alt="Pakkage Deal">
+                <h3>Pakkage Deal</h3>
+                <p>Single • 2022</p>
                 <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen</a>
             </div>
 
@@ -189,22 +214,28 @@
                 <p>Single • 2021</p>
                 <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen</a>
             </div>
+
+            <div class="disco-card">
+                <img src="assets/images/twoofus.jpg" alt="Two of Us">
+                <h3>Two of Us</h3>
+                <p>Single • 2021</p>
+                <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen</a>
+            </div>
         </div>
 
         <footer>
-            <p>© 2026 DOUBLEU | INDEPENDENT CREATOR</p>
+            <p>© 2026 DOUBLEU | ALL RIGHTS RESERVED</p>
         </footer>
     </div>
 
     <script>
-        // Simple animation trigger for cards
         const cards = document.querySelectorAll('.disco-card');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
                         entry.target.classList.add('reveal');
-                    }, index * 50); // Stagger effect
+                    }, index * 50); 
                 }
             });
         }, { threshold: 0.1 });
