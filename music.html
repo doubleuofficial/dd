@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discography | DoubleU Official</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-color: #f5f5f7;
+            --accent-main: #007bff; 
+            --youtube-red: #ff0000;
+            --spotify-green: #1DB954;
+            --card-bg: rgba(20, 20, 20, 0.7); 
+            --navbar-height: 70px;
+        }
+
+        /* --- GLOBAL --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(at 50% 50%, #111 0, #050505 100%);
+            background-attachment: fixed;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
+
+        /* --- NAVBAR --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000; 
+            backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05); 
+            background: rgba(5,5,5,0.8);
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; height: var(--navbar-height); }
+        .logo { text-decoration: none; color: #fff; font-weight: 900; letter-spacing: 2px; font-size: 1.2rem; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-link { 
+            text-decoration: none; color: rgba(255,255,255,0.6); font-size: 0.8rem; 
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; 
+        }
+        .nav-link:hover, .nav-link.active { color: var(--accent-main); }
+
+        /* --- HEADER --- */
+        .page-header { padding: 140px 0 40px; text-align: center; }
+        .page-title { font-size: 3.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 5px; margin: 0; }
+        .label { color: var(--accent-main); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; display: block; margin-bottom: 10px; }
+
+        /* --- SECTION STYLES --- */
+        .section-title { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 3px; margin: 60px 0 30px; border-left: 4px solid var(--accent-main); padding-left: 15px; }
+
+        /* --- GRID --- */
+        .disco-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .disco-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.4s ease;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .disco-card.reveal { opacity: 1; transform: translateY(0); }
+        .disco-card:hover { transform: translateY(-10px); border-color: rgba(255, 255, 255, 0.2); }
+
+        .disco-card img { width: 100%; border-radius: 12px; margin-bottom: 20px; aspect-ratio: 1/1; object-fit: cover; }
+        .disco-card h3 { margin: 0; font-size: 1.2rem; }
+        .disco-card p { opacity: 0.5; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin: 5px 0 20px; }
+
+        .btn-play {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 12px 20px; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 30px;
+            color: white; font-size: 0.8rem; font-weight: bold; text-decoration: none;
+            transition: 0.3s; width: 100%; box-sizing: border-box;
+        }
+        .btn-play:hover { background: var(--spotify-green); border-color: var(--spotify-green); }
+        .btn-play.yt:hover { background: var(--youtube-red); border-color: var(--youtube-red); }
+
+        /* --- FOOTER --- */
+        footer { padding: 80px 0; text-align: center; opacity: 0.4; font-size: 0.75rem; letter-spacing: 1px; }
+
+        @media (max-width: 600px) {
+            .page-title { font-size: 2.5rem; }
+            .nav-links { display: none; } /* Hide complex nav on mobile for simplicity */
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">DOUBLE<span style="color: var(--accent-main);">U</span></a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="music.html" class="nav-link active">Music</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <span class="label">Full Catalog</span>
+            <h1 class="page-title">Music</h1>
+        </header>
+
+        <h2 class="section-title">Albums & Projects</h2>
+        <div class="disco-grid">
+            <div class="disco-card">
+                <img src="assets/images/faded405.jpg" alt="Faded 405">
+                <h3>Faded 405</h3>
+                <p>Album • 2026</p>
+                <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen Now</a>
+            </div>
+        </div>
+
+        <h2 class="section-title">Latest Singles</h2>
+        <div class="disco-grid">
+            <div class="disco-card">
+                <img src="assets/images/aplacetoland.jpg" alt="A Place To Land">
+                <h3>A Place To Land</h3>
+                <p>Single • 2026</p>
+                <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Presave</a>
+            </div>
+
+            <div class="disco-card">
+                <img src="assets/images/coldsheets.jpg" alt="Cold Sheets Wide Eyes">
+                <h3>Cold Sheets Wide Eyes</h3>
+                <p>Single • 2026</p>
+                <a href="https://youtu.be/5DQTE3P8uBY" class="btn-play yt"><i class="fa-brands fa-youtube"></i> Watch Video</a>
+            </div>
+
+            <div class="disco-card">
+                <img src="assets/images/zerosum.jpg" alt="Zero Sum">
+                <h3>Zero Sum</h3>
+                <p>Single • 2026</p>
+                <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen</a>
+            </div>
+
+            <div class="disco-card">
+                <img src="assets/images/fadingout.jpg" alt="Fading Out">
+                <h3>Fading Out</h3>
+                <p>Single • 2026</p>
+                <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen</a>
+            </div>
+        </div>
+
+        <h2 class="section-title">From The Vault</h2>
+        <div class="disco-grid">
+            <div class="disco-card">
+                <img src="assets/images/foundyouintherainfall.jpg" alt="Found you in the RainFall">
+                <h3>Found You In The Rainfall</h3>
+                <p>Single • 2025</p>
+                <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen</a>
+            </div>
+
+            <div class="disco-card">
+                <img src="assets/images/aintnewtome.jpg" alt="Ain't New To Me">
+                <h3>Ain't New To Me</h3>
+                <p>Single • 2023</p>
+                <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen</a>
+            </div>
+
+            <div class="disco-card">
+                <img src="assets/images/twoofus.jpg" alt="Two of Us">
+                <h3>Two of Us</h3>
+                <p>Single • 2021</p>
+                <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen</a>
+            </div>
+
+            <div class="disco-card">
+                <img src="assets/images/reallifetrauma.jpg" alt="Real Life Trauma">
+                <h3>Real Life Trauma</h3>
+                <p>Single • 2021</p>
+                <a href="#" class="btn-play"><i class="fa-brands fa-spotify"></i> Listen</a>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 DOUBLEU | INDEPENDENT CREATOR</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple animation trigger for cards
+        const cards = document.querySelectorAll('.disco-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('reveal');
+                    }, index * 50); // Stagger effect
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => observer.observe(card));
+    </script>
+</body>
+</html>
